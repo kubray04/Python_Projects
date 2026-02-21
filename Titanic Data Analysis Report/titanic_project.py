@@ -24,14 +24,14 @@ print("\nYaş Gruplarına Göre Hayatta Kalma Oranları:")
 print(survival_age)
 
 survival_gender_class = data.groupby(['sex', 'pclass'])['survived'].mean().reset_index()
-#reset_index() : index’i normale çevirip veriyi tekrar tablo formatına getiren fonksiyondur.
+#reset_index() : index’i normale çevirip veriyi tekrar tablo formatına getiren fonksiyon.
 survival_gender_class.columns = ['gender', 'pclass', 'Survival Rate']
 print('\n Cinsiyet ve Sınıfa göre hayatta kalma oranları:')
 print(survival_gender_class)
 
 plt.figure(figsize=(8,6))
 sns.countplot(data=data, x='sex', hue='survived')
-#hue : grafikte renkle ikinci bir kategori eklemek demek.
+#hue : grafikte renkle ikinci bir kategori eklemek.
 plt.title('Survival by Gender')
 plt.xlabel('Gender')
 plt.ylabel('Passenger Count')
@@ -40,7 +40,6 @@ plt.show()
 
 plt.figure(figsize=(8,6))
 sns.boxplot(data=data, x="pclass", y="fare")
-
 plt.title("Relationship between Pclass and Mouse")
 plt.xlabel("Passenger Class")
 plt.ylabel("Fare")
