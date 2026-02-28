@@ -1,0 +1,29 @@
+import pandas as pd 
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv("kc_house_data.csv")
+
+numeric_cols = df.select_dtypes(include=[np.number]).columns
+#select_dtypes() → Veri tipine göre sütun seçer,include=[np.number] → Sadece sayısal sütunları seçer,.columns → Sütun isimlerini getir.
+print("Numeric columns:", numeric_cols)
+print("\nStatistics:")
+print(df[numeric_cols].agg(['mean','median','std']))
+#.agg() → Birden fazla istatistik uygular
+
+region_code = 98052
+filtered = df[df["zipcode"] == region_code]#df['area'] == region_code → Bu ifade boolean mask oluşturur.
+#df[...] → Bu mask ile sadece True olan satırlar seçiliyor.
+avg_price = filtered["price"].mean()
+print(f"\nThe average house price in region {region_code} is:", avg_price)
+
+plt.figure(figsize=(8,6))  # Grafik boyutu
+sns.scatterplot(data=df, x="sqft_living", y="price", hue="zipcode", palette="tab10", s=100)
+plt.xlabel("House Size (m²)")
+plt.ylabel("Price ($)")
+plt.title("House Size vs Price")
+plt.grid(True)  # Izgara ekledik
+plt.legend(title="ZIP Code")
+plt.tight_layout()  # Layout sıkıştırma
+plt.show()
