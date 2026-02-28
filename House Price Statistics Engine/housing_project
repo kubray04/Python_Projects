@@ -1,0 +1,37 @@
+import pandas as pd 
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+# Seed ayarlanıyor → Rastgele sayıların tekrar aynı şekilde üretilmesi için
+# DataFrame oluşturuluyor
+df = pd.DataFrame({
+    "size": np.random.randint(50, 250, 20),          # 50-250 m² arasında 20 ev büyüklüğü
+    "price": np.random.randint(100000, 1000000, 20), # 100k-1M $ arasında 20 fiyat
+    "region": np.random.choice([1, 2, 3, 4], 20)     # 1-4 arası 20 bölge kodu
+})
+# CSV olarak kaydediliyor
+df.to_csv("home_example.csv", index=False)
+# CSV tekrar okunuyor ve gösteriliyor
+df_loaded = pd.read_csv("home_example.csv")
+print(df_loaded)
+
+numeric_cols = df.select_dtypes(include=[np.number]).columns
+#select_dtypes() → Veri tipine göre sütun seçer,include=[np.number] → Sadece sayısal sütunları seçer,.columns → Sütun isimlerini getir.
+print("Numeric columns:", numeric_cols)
+print("/nStatistics:")
+print(df[numeric_cols].agg(['mean','median','std']))
+#.agg() → Birden fazla istatistik uygular
+
+region_code = 34
+filtered = df[df["region"] == region_code]
+#df['area'] == region_code → Bu ifade boolean mask oluşturur.
+#df[...] → Bu mask ile sadece True olan satırlar seçiliyor.
+avg_price = filtered["price"].mean()
+print(f"\nThe average house price in region {region_code} is:", avg_price)
+
+plt.scatter(df["size"], df["price"])
+plt.xlabel("House size")
+plt.ylabel("Price($)")
+plt.title("House Size vs Price")
+plt.show()
