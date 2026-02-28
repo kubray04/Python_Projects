@@ -16,14 +16,14 @@ df.to_csv("home_example.csv", index=False)
 df_loaded = pd.read_csv("home_example.csv")
 print(df_loaded)
 
-numeric_cols = df.select_dtypes(include=[np.number]).columns
+numeric_cols = df_loaded.select_dtypes(include=[np.number]).columns
 #select_dtypes() → Veri tipine göre sütun seçer,include=[np.number] → Sadece sayısal sütunları seçer,.columns → Sütun isimlerini getir.
 print("Numeric columns:", numeric_cols)
-print("/nStatistics:")
+print("\nStatistics:")
 print(df[numeric_cols].agg(['mean','median','std']))
 #.agg() → Birden fazla istatistik uygular
 
-region_code = 34
+region_code = 2
 filtered = df[df["region"] == region_code]
 #df['area'] == region_code → Bu ifade boolean mask oluşturur.
 #df[...] → Bu mask ile sadece True olan satırlar seçiliyor.
@@ -35,3 +35,4 @@ plt.xlabel("House size")
 plt.ylabel("Price($)")
 plt.title("House Size vs Price")
 plt.show()
+
