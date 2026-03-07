@@ -3,8 +3,8 @@ import pandas as pd
 # CSV yükleme
 df = pd.read_csv("titanic.csv")
 
-print("Veri Seti Boyutu:", df.shape)
-print("\nSütunlar:", df.columns)
+print("Dataset Shape:", df.shape)
+print("\Columns:", df.columns)
 #df.shape → (satır sayısı, sütun sayısı) verir.
 #df.columns → sütun isimlerini listeler.
 
@@ -22,7 +22,7 @@ missing_report = pd.DataFrame({
 #missing_ratio.index → sütun isimleri
 #missing_ratio.values → NaN oranları
 
-print("\n=== Eksik Veri Oranı ===")
+print("\n=== Missing Data Ratio ===")
 print(missing_report)
 
 
@@ -43,10 +43,10 @@ outliers = df[(df[col] > upper_limit) | (df[col] < lower_limit)]
 # | → “veya” anlamına gelir
 #Sonuç: outliers DataFrame’i sadece aykırı değerleri içerir.
 
-print("\n=== Fare Sütununda Aykırı Değerler ===")
+print("\n=== Outliers in Fare Column ===")
 print(outliers[[col]])
 
-print("\nToplam aykırı değer:", len(outliers))
+print("\nTTotal outliers:", len(outliers))
 #outliers[[col]] → sadece Fare sütununu gösterir
 #len(outliers) → kaç tane aykırı değer olduğunu verir
 
